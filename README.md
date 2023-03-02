@@ -1,7 +1,7 @@
 # Dummy load api
 
 This is a dummy api endpoint that is able to generate CPU and memory load for testing purposes. 
-It allocates memory and splits the load across go routines (locked to a OS thread)
+It allocates memory and splits the load across go routines (locked to an OS thread)
 
 ### Building locally
 
