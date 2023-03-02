@@ -1,7 +1,7 @@
 # Dummy load api
 
 This is a dummy api endpoint that is able to generate CPU and memory load for testing purposes. 
-It allocates memory and splits the load across go routines (locked to thread)
+It allocates memory and splits the load across go routines (locked to an OS thread)
 
 ### Building locally
 
@@ -32,7 +32,7 @@ docker push ${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPOSITORY_NAME}/dummy-api:
 
 # Kubernetes deployment
 
-Modify k8s/dummy-load-api.yaml to you liking
+Modify k8s/dummy-load-api.yaml to your liking
 ```bash
 kubectl apply -f k8s/dummy-load-api.yaml
 ```
@@ -47,6 +47,9 @@ curl http://localhost:8080/load?cores=2&time=1000&percentage=25&ram=1024
 URL parameters are:
 
 `cores` - amount of "cores" to use, will bind to an os thread - **default** 1
+
 `time` - time in milliseconds - **default** 100(ms)
+
 `percentage` - approximate cpu usage per core - **default** 25(%)
+
 `ram` - amount of memory to allocate in megabytes (evenly distributes across threads) - **default** 128 (mb)
