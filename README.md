@@ -32,7 +32,7 @@ docker push ${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPOSITORY_NAME}/dummy-api:
 
 # Kubernetes deployment
 
-Modify k8s/dummy-load-api.yaml to you liking
+Modify k8s/dummy-load-api.yaml to your liking
 ```bash
 kubectl apply -f k8s/dummy-load-api.yaml
 ```
