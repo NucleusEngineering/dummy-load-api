@@ -26,4 +26,4 @@ clean:
 	rm -rf ${BUILD_DIR}/
 	docker rmi -f dummy-load-api
 
-.PHONY: build build-docker clean
+.PHONY: build build-image clean
