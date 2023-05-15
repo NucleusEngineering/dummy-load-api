@@ -1,0 +1,34 @@
+apiVersion: autoscaling.gke.io/v1beta1
+kind: MultidimPodAutoscaler
+metadata:
+  name: dummy-app-autoscaler
+  namespace: dummy-load-api-workload
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: dummy-load-api-deployment
+  goals:
+    metrics:
+    - type: Resource
+      resource:
+      # Define the target CPU utilization request here
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 75
+  constraints:
+    global:
+      minReplicas: 3
+      maxReplicas: 18
+    containerControlledResources: [ memory ]
+    container:
+    - name: '*'
+    # Define boundaries for the memory request here
+      requests:
+        minAllowed:
+          memory: 512Mi
+        maxAllowed:
+          memory: 2Gi
+  policy:
+    updateMode: Auto

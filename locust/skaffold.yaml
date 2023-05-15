@@ -1,0 +1,13 @@
+apiVersion: skaffold/v4beta1
+kind: Config
+manifests:
+  rawYaml:
+    - k8s-manifests/locust-master-service.yaml
+    - k8s-manifests/locust-master-controller.yaml
+    - k8s-manifests/locust-worker-controller.yaml
+deploy:
+  kubectl:
+    flags:
+      apply:
+        - --server-side # Avoid the "Too long: must have at most 262144 bytes" problem
+  tolerateFailuresUntilDeadline: true # Fixes startup timeouts

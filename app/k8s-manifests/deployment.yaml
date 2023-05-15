@@ -1,0 +1,53 @@
+# Copyright 2023 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http:/www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# This file contains the sample minimal pod definitions for all of the components that one may need to use Open Match as a match maker.
+# You can find the same pod definitions within the sub-folders under the /tutorials/ directory
+# Run `kubectl apply -f matchmaker.yaml` to deploy these definitions.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dummy-load-api-deployment
+  namespace: dummy-load-api-workload
+  labels:
+    app: dummy-load-api
+    component: frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: dummy-load-api
+  template:
+    metadata:
+      labels:
+        app: dummy-load-api
+        component: frontend
+    spec:
+      containers:
+      - name: dummy-load-api
+        image: dummy
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 8080
+        resources:
+          requests:
+            memory: 1Gi
+            ephemeral-storage: 100Mi
+            cpu: 250m
+          limits:
+            memory: 2Gi
+            ephemeral-storage: 100Mi
+            cpu: 1
